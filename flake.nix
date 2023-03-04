@@ -73,27 +73,27 @@
                 Unit = "gddns.service";
               };
             };
-          };
-          systemd.services.gddns = {
-            wantedBy = [ "network.target" ];
-            serviceConfig =
-              let pkg = self.packages.${pkgs.system}.gddns; in
-              {
-                Type = "oneshot";
-                WorkingDirectory = "${cfg.workingDirectory}";
-                ProtectSystem = "strict";
-                ExecStart = ''
-                  ${pkg}/bin/gddns \
-                    --interface ${cfg.interface} \
-                    --url       ${cfg.url} \
-                    --hostname  ${cfg.hostname} \
-                    --username  ${cfg.username} \
-                    --password  ${cfg.password} \
-                    --offline   ${cfg.offline} \
-                    --dryrun    ${cfg.dryrun} \
-                    --ipv6      ${cfg.ipv6} \
-                '';
-              };
+            systemd.services.gddns = {
+              wantedBy = [ "network.target" ];
+              serviceConfig =
+                let pkg = self.packages.${pkgs.system}.gddns; in
+                {
+                  Type = "oneshot";
+                  WorkingDirectory = "${cfg.workingDirectory}";
+                  ProtectSystem = "strict";
+                  ExecStart = ''
+                    ${pkg}/bin/gddns \
+                      --interface ${cfg.interface} \
+                      --url       ${cfg.url} \
+                      --hostname  ${cfg.hostname} \
+                      --username  ${cfg.username} \
+                      --password  ${cfg.password} \
+                      --offline   ${cfg.offline} \
+                      --dryrun    ${cfg.dryrun} \
+                      --ipv6      ${cfg.ipv6} \
+                  '';
+                };
+            };
           };
         };
       };
@@ -101,7 +101,8 @@
 
 
     # Shell
-    devShells.x86_64-linux.default = with import nixpkgs { system = "x86_64-linux"; };
+    devShells.x86_64-linux.default =
+      with import nixpkgs { system = "x86_64-linux"; };
       pkgs.mkShell
         {
           buildInputs = [
