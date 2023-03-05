@@ -26,40 +26,40 @@
       {
         options.services.gddns = {
           enable = mkEnableOption "gddns service";
-          interface.mkOption = {
+          interface = mkOption {
             type = types.str;
             default = "";
             description = "Logical interface used to fetch external ip address, will override url value";
           };
-          url.mkOption = {
+          url = mkOption {
             type = types.str;
             default = "https://domains.google.com/checkip";
             description = "URL used to GET external IP address, interface option will override this value if supplied";
           };
-          hostname.mkOption = {
+          hostname = mkOption {
             type = types.str;
             description = "FQDN of the dynamic dns record to be updated";
           };
-          username.mkOption = {
+          username = mkOption {
             type = types.str;
             description = "Google domains generated username";
           };
-          password.mkOption = {
+          password = mkOption {
             type = types.str;
             description = "Google domains generated password";
           };
           #passwordFile.mkOption.type = types.str;
-          offline.mkOption = {
+          offline = mkOption {
             type = types.bool;
             default = false;
             description = "If the host record should be set as offline (inactive)";
           };
-          dryrun.mkOption = {
+          dryrun = mkOption {
             type = types.bool;
             default = false;
             description = "don't make any changes";
           };
-          ipv6.mkOption = {
+          ipv6 = mkOption {
             type = types.bool;
             default = false;
             description = "use ipv6 address, if provided ipv6 will be used instead of ipv4";
