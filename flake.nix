@@ -88,9 +88,9 @@
                       --hostname  ${cfg.hostname} \
                       --username  ${cfg.username} \
                       --password  ${cfg.password} \
-                      --offline   ${cfg.offline} \
-                      --dryrun    ${cfg.dryrun} \
-                      --ipv6      ${cfg.ipv6} \
+                      --offline   ${lib.boolToString cfg.offline} \
+                      --dryrun    ${lib.boolToString cfg.dryrun} \
+                      --ipv6      ${lib.boolToString cfg.ipv6} \
                   '';
                 };
             };
