@@ -36,14 +36,14 @@
           cfg = config.services.gddns;
           configFile = builtins.toFile "gddns.conf" ''
             dryrun = ${lib.boolToString cfg.dryrun}
-            hostname = ${cfg.hostname}
-            interface = ${cfg.interface}
+            hostname = "${cfg.hostname}"
+            interface = "${cfg.interface}"
             ipv6 = ${lib.boolToString cfg.ipv6}
             offline = ${lib.boolToString cfg.offline}
-            password = ${cfg.password}
-            password-file = ${cfg.passwordFile}
-            url = ${cfg.url}
-            username = ${cfg.username}
+            password = "${cfg.password}"
+            password-file = "${cfg.passwordFile}"
+            url = "${cfg.url}"
+            username = "${cfg.username}"
 
           '';
         in
