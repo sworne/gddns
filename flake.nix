@@ -79,7 +79,6 @@
             serviceConfig = let pkg = self.packages.${pkgs.system}.gddns; in
               {
                 Type = "oneshot";
-                WorkingDirectory = "${cfg.workingDirectory}";
                 ProtectSystem = "strict";
                 ExecStart = ''
                   ${pkg}/bin/gddns \
