@@ -44,7 +44,6 @@
             password-file = "${cfg.passwordFile}"
             url = "${cfg.url}"
             username = "${cfg.username}"
-
           '';
         in
         {
@@ -93,18 +92,24 @@
               default = false;
               description = "use ipv6 address, if provided ipv6 will be used instead of ipv4";
             };
+            interval = mkOption {
+              type = types.str;
+              default = "10m";
+              description = "how often the systemd.timer should run";
+            };
           };
           config = mkIf cfg.enable {
             systemd.timers.gddns = {
               wantedBy = [ "timers.target" ];
               timerConfig = {
-                OnBootSec = "5m";
-                OnUnitActiveSec = "5m";
+                OnStartupSec = "${cfg.timerInterval}";
+                RandomizedDelaySec= "30";
                 Unit = "gddns.service";
               };
             };
             systemd.services.gddns = {
-              wantedBy = [ "network.target" ];
+              Wants = [ "nss-lookup.target" ];
+              WantedBy = [ "network-online.target" ];
               serviceConfig = let pkg = self.packages.${pkgs.system}.gddns; in
                 {
                   Type = "oneshot";
