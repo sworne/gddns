@@ -102,14 +102,14 @@
             systemd.timers.gddns = {
               wantedBy = [ "timers.target" ];
               timerConfig = {
-                OnStartupSec = "${cfg.timerInterval}";
+                OnStartupSec = "${cfg.interval}";
                 RandomizedDelaySec= "30";
                 Unit = "gddns.service";
               };
             };
             systemd.services.gddns = {
-              Wants = [ "nss-lookup.target" ];
-              WantedBy = [ "network-online.target" ];
+              wants = [ "nss-lookup.target" ];
+              wantedBy = [ "network-online.target" ];
               serviceConfig = let pkg = self.packages.${pkgs.system}.gddns; in
                 {
                   Type = "oneshot";
