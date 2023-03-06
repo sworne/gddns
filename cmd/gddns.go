@@ -28,10 +28,8 @@ type Config struct {
 }
 
 var (
-	ErrUpdate      = errors.New("update error")
+	ErrUpdate      = errors.New("update failed")
 	ErrNotModified = errors.New("not modified")
-	Success        = "success!"
-	Update         = "update"
 )
 
 func (c *Config) Read(filepath string) (err error) {
@@ -130,17 +128,17 @@ func main() {
 		log.Fatal(err)
 	}
 	if currentAddr.Equal(opts.Address) {
-		log.Printf("%q %v: %v (no change)\n", opts.Hostname, ErrNotModified, opts.Address)
+		log.Printf("%v %v: %v (no change)", opts.Hostname, ErrNotModified, opts.Address)
 		return
 	}
 	if config.Dryrun {
-		log.Printf("[dryrun] %q %v: %v\n", Update, opts.Hostname, opts.Address)
+		log.Printf("[dryrun] setting %v to %v", opts.Hostname, opts.Address)
 		return
 	}
 
-	log.Printf("%q %v: %v\n", Update, opts.Hostname, opts.Address)
+	log.Printf("setting %v to %v", opts.Hostname, opts.Address)
 	if response, err = client.Update(opts); err != nil {
-		log.Printf("%q %v: %v\n", opts.Hostname, ErrUpdate, err)
+		log.Fatalf("%v: %q", ErrUpdate, err)
 	}
-	log.Printf("%v: %q", Success, response)
+	log.Printf("%v updated to %v: %q", opts.Hostname, opts.Address, response)
 }

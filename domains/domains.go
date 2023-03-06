@@ -41,9 +41,9 @@ type DDNS struct {
 
 func parseResposneErrors(s string) error {
 	errs := []error{NoAuth, BadAuth, NotFQDN, BadAgent, Abuse, ServerSide, ConflictA, ConflictAAAA}
-	for _, e := range errs {
-		if errors.Is(errors.New(string(s)), e) {
-			return e
+	for _, err := range errs {
+		if err.Error() == s {
+			return err
 		}
 	}
 	return nil

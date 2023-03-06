@@ -101,6 +101,7 @@
           config = mkIf cfg.enable {
             systemd.timers.gddns = {
               wantedBy = [ "timers.target" ];
+              wants = [ "network-online.target" ];
               timerConfig = {
                 OnStartupSec = "${cfg.interval}";
                 RandomizedDelaySec= "30";
@@ -108,8 +109,7 @@
               };
             };
             systemd.services.gddns = {
-              wants = [ "nss-lookup.target" ];
-              wantedBy = [ "network-online.target" ];
+              wants = [ "network-online.target" ];
               serviceConfig = let pkg = self.packages.${pkgs.system}.gddns; in
                 {
                   Type = "oneshot";
