@@ -110,6 +110,7 @@
             };
             systemd.services.gddns = {
               wants = [ "network-online.target" ];
+              wantedBy = [ "multi-user.target" ];
               serviceConfig = let pkg = self.packages.${pkgs.system}.gddns; in
                 {
                   Type = "oneshot";
