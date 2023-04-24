@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	PrimaryNameserver  = "ns-cloud-c1.googledomains.com"
-	FallbackNameserver = "ns-cloud-c2.googledomains.com"
+	PrimaryNameserver  = "dns.google"
+	FallbackNameserver = "one.one.one.one"
 )
 
 type Address struct {
