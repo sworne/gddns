@@ -7,7 +7,7 @@ A small utility to update dynamic host records on [Google Domains](https://domai
 
 Config file
 ```shell
-gddns --config /etc/bddns.conf
+gddns --config /etc/gddns.conf
 ```
 
 Manually specified flags
@@ -20,7 +20,8 @@ Nix Flakes (https://nixos.wiki/wiki/Flakes)
 nix run github:sworne/gddns -- --username <username> --password <pass> --hostname <example.com>
 ```
 
-#### Config 
+#### Config
+`/etc/gddns.conf`
 ```toml
 dryrun = true
 hostname = "example.com"
