@@ -1,9 +1,7 @@
 # gddns
 A small utility to update dynamic host records on [Google Domains](https://domains.google.com).
 
-### Examples
-
-#### Run
+### Run
 
 Config file
 ```shell
@@ -20,7 +18,9 @@ Nix Flakes (https://nixos.wiki/wiki/Flakes)
 nix run github:sworne/gddns -- --username <username> --password <pass> --hostname <example.com>
 ```
 
-#### Config
+### Configure
+
+Via config file
 `/etc/gddns.conf`
 ```toml
 dryrun = true
@@ -32,6 +32,34 @@ password = "pass1234"
 password-file = "/var/run/secret"
 url = "https://domains.google.com/checkip"
 username = "user1"
+```
+
+Via NixOS module (flakes)
+
+`flake.nix`
+```nix
+{
+  inputs.gddns.url = "github:sworne/gddns";
+  outputs = { nixpkgs, gddns }: {
+    nixosConfigurations.host = nixpkgs.lib.nixosSystem {
+      modules = [
+        gddns.nixosModules.gddns
+      ];
+    };
+  };
+}
+```
+
+`configuration.nix`
+```nix
+{ config, ... }: {
+  services.gddns = {
+    enable = true;
+    hostname = "example.com";
+    username = "username";
+    passwordFile = "<path-to-password-file>";
+  };
+}
 ```
 
 ### Develop
