@@ -15,13 +15,23 @@ Manually specified flags
 gddns --username <username> --password <pass> --hostname <example.com>
 ```
 
-Nix (https://nixos.wiki/wiki/Flakes)
+Nix Flakes (https://nixos.wiki/wiki/Flakes)
 ```shell
 nix run github:sworne/gddns -- --username <username> --password <pass> --hostname <example.com>
 ```
 
-#### Config
-https://github.com/sworne/gddns/blob/7357360e65720d01dd3e941474c831c1c68ff623/example.conf
+#### Config 
+```toml
+dryrun = true
+hostname = "example.com"
+interface = "eth0"
+ipv6 = false
+offline = false
+password = "pass1234"
+password-file = "/var/run/secret"
+url = "https://domains.google.com/checkip"
+username = "user1"
+```
 
 ### Develop
 
